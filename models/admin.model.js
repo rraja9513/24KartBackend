@@ -1,7 +1,7 @@
 const mongoose=require('mongoose');
 const passportLocalMongoose=require('passport-local-mongoose');
 const Schema=mongoose.Schema;
-const customerSchema=new Schema(
+const adminSchema=new Schema(
     {
         name:{
             type:String,
@@ -19,6 +19,6 @@ const customerSchema=new Schema(
         timestamps:true,
     }
 );
-customerSchema.plugin(passportLocalMongoose,{usernameField: 'email'});
-const Customer=mongoose.model('Customer',customerSchema);
-module.exports=Customer;
+adminSchema.plugin(passportLocalMongoose,{usernameField: 'email'});
+const Admin=mongoose.model('Admin',adminSchema);
+module.exports=Admin;

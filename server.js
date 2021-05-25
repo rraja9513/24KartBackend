@@ -3,7 +3,7 @@ const mongoose=require('mongoose');
 const cors=require('cors');
 const session=require('express-session');
 const passport=require('passport');
-const Customer=require('./models/customer.model');
+const Admin=require('./models/admin.model');
 require('dotenv').config();
 const app=express();
 app.use(cors());
@@ -22,13 +22,11 @@ const connection=mongoose.connection;
 connection.once('open',()=>{
     console.log("Atlas started successfully")
 })
-passport.use('customerLocal',Customer.createStrategy());
-passport.serializeUser(Customer.serializeUser());
-passport.deserializeUser(Customer.deserializeUser());
-const customerRouter=require('./routes/customers');
-;
-app.use('/customers',customerRouter);
-
+passport.use('adminLocal',Admin.createStrategy());
+passport.serializeUser(Admin.serializeUser());
+passport.deserializeUser(Admin.deserializeUser());
+const adminRouter=require('./routes/admin');
+app.use('/admin',adminRouter);
 app.listen(port,function(){
     console.log("Server started Successfully");
 });
