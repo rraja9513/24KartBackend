@@ -65,4 +65,22 @@ router.route('/login').post((req,res)=>{
     }
   }
  });
+ router.route('/changepassword').post((req,res)=>{
+  if(req.isAuthenticated()){
+  Admin.findOne({ email: req.body.email })
+  .then((admin) => {
+      admin.changePassword(req.body.oldpassword, req.body.newpassword,(err, admin) => {
+          if (err) return next(err);
+          admin.save();
+          res.status(200).json({ message: 'Password Change Successful' });
+      });
+  })
+  .catch((err)=>{
+    res.json("Admin  Not  Found")
+  })
+}
+else{
+  res.redirect('/login');
+}
+});
  module.exports=router;
