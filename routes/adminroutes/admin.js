@@ -1,6 +1,6 @@
 const router=require('express').Router();
 const passport=require('passport');
-let Admin=require('../models/admin.model');
+let Admin=require('/Users/rraja/24HCartBackend/models/adminmodels/admin.model');
 router.route('/').get((req, res) => {
     Admin.find()
       .then(admin => res.json(admin))
