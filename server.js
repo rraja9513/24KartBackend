@@ -5,6 +5,7 @@ const session=require('express-session');
 const passport=require('passport');
 const Admin=require('./models/admin.model');
 const Customer=require('./models/customer.model');
+const Vendor=require('./models/vendor.model');
 require('dotenv').config();
 const app=express();
 app.use(cors());
@@ -29,10 +30,15 @@ passport.deserializeUser(Admin.deserializeUser());
 passport.use('customerLocal',Customer.createStrategy());
 passport.serializeUser(Customer.serializeUser());
 passport.deserializeUser(Customer.deserializeUser());
+passport.use('vendorLocal',Vendor.createStrategy());
+passport.serializeUser(Vendor.serializeUser());
+passport.deserializeUser(Vendor.deserializeUser());
 const adminRouter=require('./routes/admin');
-const customerRouter=require('./routes/customers')
+const customerRouter=require('./routes/customers');
+const vendorRouter=require('./routes/vendors');
 app.use('/admin',adminRouter);
 app.use('/customers',customerRouter);
+app.use('/vendors',vendorRouter);
 app.listen(port,function(){
     console.log("Server started Successfully");
 });
